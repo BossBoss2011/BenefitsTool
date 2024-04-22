@@ -7,9 +7,6 @@ from time import sleep
 
 type Number = int | float
 
-import math
-from typing import Any
-
 @cache
 def add(*numbers: Number, times: int = 1) -> Number:
     addition = 0
@@ -103,3 +100,27 @@ def retry(retries: int = 3, delay: Number = 1, log_errors: bool = True) -> Calla
         return wrapper
 
     return decorator
+
+class Item_Getter:
+    def __init__(self, *indexes: int):
+        """Create an Item_Getter instance. Afterwards, call this variable as a function and insert the list you want as the argument.
+        
+        :params indexes: The indexes you wish to retrieve
+        :return:"""
+        if indexes == ():
+            raise ValueError("`indexes` can not be an empty value.")
+        self.indexes = indexes
+
+    def __call__(self, List: Iterable) -> tuple[Any]:
+        """Returns the parsed indexes from a list.
+        
+        :params List: The list you wish to get items from
+        :return: tuple[Any] <-> The items with the parsed indexes from the parsed list."""
+        output = ()
+        for index in self.indexes:
+            val = List[index]
+            tval = (val,)
+            output = output + tval
+        
+        return output
+        
